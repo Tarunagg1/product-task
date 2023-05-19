@@ -43,7 +43,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         updated_at: {
             type: DataTypes.DATE,
         }
-    });
+    }, { timestamps: false });
     return ProductModel;
 };
 
