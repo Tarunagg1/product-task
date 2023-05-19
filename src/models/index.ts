@@ -9,16 +9,7 @@ const config = require(__dirname + '/../config/config.js')[env];
 const db: any = {};
 
 let sequelize: any;
-if (config.use_env_variable) {
-    console.log(config);
-
-    sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-    console.log(config);
-
-    sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
-
+sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 fs.readdirSync(__dirname)
     .filter((file: string) => {
@@ -26,7 +17,7 @@ fs.readdirSync(__dirname)
     })
     .forEach((file: any) => {
         const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-        // console.log(model);
+
         db[model.name] = model;
     });
 
@@ -39,13 +30,5 @@ fs.readdirSync(__dirname)
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.sequelize.authenticate().then(function () {
-    if (sequelize.sync({ force: false }))
-        console.log('kiok');
-}).catch(function (error) {
-    console.log(error);
-});
-
-console.log("db", db);
 
 export default db;

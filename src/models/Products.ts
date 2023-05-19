@@ -15,19 +15,9 @@ interface IProductAttributes {
 
 
 module.exports = (sequelize: any, DataTypes: any) => {
-    class ProductModel extends Model<IProductAttributes> implements IProductAttributes {
-        id!: number;
-        name!: string;
-        description?: string;
-        price!: number;
-        quantity!: number;
-        created_at!: Date;
-        updated_at!: Date;
-    };
-
-    ProductModel.init({
+    const ProductModel = sequelize.define("Products", {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
@@ -53,9 +43,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         updated_at: {
             type: DataTypes.DATE,
         }
-    }, {
-        sequelize,
-        modelName: 'Products',
     });
     return ProductModel;
 };

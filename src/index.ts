@@ -11,13 +11,12 @@ const startServer = async () => {
     const app = express();
 
     await App(app);
-    console.log('ynhb');
 
-    db.sequelize.sync({ force: true, alter: true }).then(() => {
-        console.log('sync successfully');
-    }).catch((err) => {
-        console.log(err);
-    })
+    // db.sequelize.sync().then(() => {
+    //     console.log('sync successfully');
+    // }).catch((err) => {
+    //     console.log(err);
+    // })
     app.listen(APP_PORT, () => {
         console.log('listening on port ' + APP_PORT);
     });
